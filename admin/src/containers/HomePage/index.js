@@ -42,7 +42,7 @@ const HomePage = () => {
           <div className="col-lg-8 col-md-12">
             <Block>
                 <h2 id="mainHeader">Bem-Vindo a Won Games</h2>
-                <P>Ao lado você pode inserir diferentes jogos, categorias e publishers para a nossa maravilhos loja de jogos!</P>
+                <P>Ao lado você pode inserir diferentes jogos, categorias e publishers para a nossa maravilhosa loja de jogos!</P>
 
               <Separator style={{ marginTop: 37, marginBottom: 36 }} />
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
