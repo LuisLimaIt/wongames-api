@@ -28,7 +28,7 @@ async function getGameInfo(slug) {
 
     return {
       rating:'BR0',
-      short_description: description.textContent.slice(0, 160),
+      short_description: description.textContent.trim().slice(0, 160),
       description: description.innerHTML
     }
   } catch(e) {
@@ -47,16 +47,16 @@ async function create(name, entityName) {
   if(!item) {
     return await strapi.services[entityName].create({
       name,
-      slug: slugify(name, {lower: true}),
+      slug: slugify(name, { strict: true, lower: true}),
     })
   }
 };
 
 async function createManyToManyData(products) {
-  const developers = {};
-  const publishers = {};
-  const categories = {};
-  const platforms = {};
+  const developers = new Set();
+  const publishers = new Set();
+  const categories = new Set();
+  const platforms = new Set();
 
   products.forEach((product) => {
     const { developer, publisher, genres, supportedOperatingSystems } = product;
@@ -105,7 +105,7 @@ async function setImage({ image, game, field = "cover" }) {
         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
       },
     });
-  } catch (error) {
+  } catch (e) {
     console.log("setImage", Exception(e));
   }
 }
@@ -163,7 +163,7 @@ module.exports = {
 
       await createManyToManyData(products);
       await createGames(products);
-    } catch (error) {
+    } catch (e) {
       console.log("populate", Exception(e));
     }
   }
